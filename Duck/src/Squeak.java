@@ -1,4 +1,4 @@
-
+/*this provides the Squeak kind of QuackBehavior*/
 public class Squeak implements QuackBehavior {
 
 	@Override

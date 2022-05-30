@@ -1,4 +1,4 @@
-
+/*Some ducks cannot fly.  Just another concrete class to represent a different FlyBehavior*/
 public class FlyNoWay implements FlyBehavior {
 
 	@Override

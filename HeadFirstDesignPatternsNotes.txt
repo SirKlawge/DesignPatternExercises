@@ -1,0 +1,29 @@
+Notes from Head First Design Patterns:
+    
+    When you're designing your program, try to isolate the non-changing parts of the program from those that do 
+    change.
+    
+    "Program to an interface" really means "Program to a supertype".
+    
+    When you make your compile time declarations, the left side of the assignment operator, try to always refer to 
+    the interface/abstract class type rather than that of a concrete class.
+    
+    So let's say that you have an Animal superclass with a Dog and Cat subclass.  We know that both Dogs and Cats make 
+    sounds, so rather than having the client do something like
+        Animal d = new Dog();
+        d.bark();
+        
+    which locks you into the particular implementation found in the Dog class, do something more general like
+        Animal animal = new Dog();
+        animal.makeSound();
+        
+    Where makeSound is an abstract method in Animal's interface.  This is another example of programming to an interface.
+    Both Dog and Cat class override and provide implementation for makeSound().
+    
+    We can make this even better by not even using the new operator in the client:
+        Animal a = getAnimal();
+        a.makeSound();
+        
+    Where there's some other class that determines which runtime object a should refer to.
+    
+    

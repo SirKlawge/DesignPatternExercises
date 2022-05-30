@@ -1,4 +1,4 @@
-
+/*This provides the silent kind of QuackBehavior*/
 public class MuteQuack implements QuackBehavior {
 
 	@Override
