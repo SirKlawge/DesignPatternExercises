@@ -1,20 +1,17 @@
 
 public class WeatherData {
 	
-	private int temperature;
-	private int humidity;
-	private int pressure;
-	
-	public int getTemperature() {
-		return this.temperature;
+	/*Let's pretend that these getters grab the most recent data from the weather station*/
+	public float getTemperature() {
+		return 87.2f;
 	}
 	
-	public int getHumidity() {
-		return this.humidity;
+	public float getHumidity() {
+		return 3.1f;
 	}
 	
-	public int getPressure() {
-		return this.pressure;
+	public float getPressure() {
+		return 0.3f;
 	}
 	
 	/*This method gets called any time the WeatherData obtains new values for any of its

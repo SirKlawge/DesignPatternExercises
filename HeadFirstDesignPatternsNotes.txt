@@ -53,4 +53,16 @@ Notes from Head First Design Patterns:
                 Weather Statistics
                 a simple forecast
                 
+            We want to make this expandable so that other developers can create new custom displays.
             
+            If we notify our displays by referencing them specifically, then we're coding to implementation.  Which
+            means that if we want to add or change a display, we have to change the code in the meansurementsChanged()
+            method.
+            
+        
+        The book uses the language of Subject/Observer.  The subject is the observable.  Remember the way you 
+        implemented this in MVC: the View held an instance of the Model, and the view then called 
+        model.addObserver(this);
+        
+        Formal definition of Observable pattern: a one-to-many dependency between objects such that when one 
+        object changes state, all of its dependents are notified and updated automatically.
