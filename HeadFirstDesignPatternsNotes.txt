@@ -26,4 +26,31 @@ Notes from Head First Design Patterns:
         
     Where there's some other class that determines which runtime object a should refer to.
     
+    Rather than thinking of the duck's behaviors as a set of bahaviors, think of them as a family of algorithms.
     
+    Design Principle: favor composition over inheritance.  This gives you more flexibilty.
+    
+    The Duck example is an implementation of the Strategy Pattern.
+    
+    Strategy Pattern:
+        defines a family of algorithms, encapsulates each of them, and makes them interchangable.  This lets the 
+        algorithm vary independently from clients that use it.
+        
+    To be clear, the family of algorithms in the Duck example are FlyBehavior and QuackBahavior, and the concrete 
+    classes that implemented these interfaces are the specific, individual algorithms. 
+    
+    
+    Observer Pattern:
+        When something changes, notify observers.
+        
+        The Weather-O-Rama has three components:
+            The weather station that gathers weather data.
+            The weather data object that tracks data coming from the weather station and updates displays
+            The displays that shows the users the current weather.
+            
+            The three different display elements that we have to develop are:
+                Current conditions (temp, humidity, pressure)
+                Weather Statistics
+                a simple forecast
+                
+            
