@@ -66,3 +66,24 @@ Notes from Head First Design Patterns:
         
         Formal definition of Observable pattern: a one-to-many dependency between objects such that when one 
         object changes state, all of its dependents are notified and updated automatically.
+        
+        Participants:
+            
+            Subject (Interface) - defines the interfaace through which Observers can subscribe or unsubscribe. Also 
+            defines an notifyObservers method through which the Observable notifies Observers.
+            
+            ConcreteSubject - the Observable class that sends out notifications.
+            
+            Observer (interface) - defines the update method that will ultimately allow concrete classes to respond
+            to notifications.
+            
+            ConcreteObserver - responds to notifications from Subjects via the update method.
+            
+        Sure, the subscribers enter into a relationship of dependence upon the Subject, but this is a loose coupling.
+        They don't need to know implementation details about the Subject.  Really, they only ever see the output as 
+        the Subject wishes to send.  And the Subject knows nothing about its Observers other than that they are 
+        Observers.
+        
+        As a design principle, we should strive for loosely coupled designs between objects that interact.
+        
+        
