@@ -86,4 +86,77 @@ Notes from Head First Design Patterns:
         
         As a design principle, we should strive for loosely coupled designs between objects that interact.
         
-        
+        Java's swing library has listeners that its components can use to respond to various types of events that 
+		occur on Swing components.
+		
+		The Observer/Observable classes in Java started to be phased out as of Java 9.
+		People prefered to implement their own Observer/OBservable interfaces since they were able to customize 
+		them.
+		
+		You could modify the Observer/Observable pattern so that rather than the Subject pushing it's updates to 
+		the observers in a way that it chooses, you could have the Observers pull the information that they choose
+		(so long as the Subject makes it available).  To do this:
+			1) Have the subject provide the relevant getter methods
+			2) Change the Subject's notifyObservers() to traverse the list of Observers and call update() but 
+			with no parameters
+			3) Change the observer interface so that update() method has no paramters.  Make the same change for 
+			all concrete observers.
+			4) Since each concrete observer holds a reference to the Subject, use the Subject's getters inside
+			the update method to gather only the data that each concrete observer needs.
+		
+	
+	THe Decorator Pattern:
+		
+		Decorator pattern will allow us to give objects new responsibilities and functionality without having to 
+		change their unerlying classes.  We do this by making the object a component of a wrapper class.
+		
+		Let's say you have a coffee shop that offers a variety of beverages.  You could have an abstract Beverage
+		class that other concrete beverages inherit, each of which overrides the abstract cost method.
+		What results is a "class explosion", a rapid increase in the number of classes, as the menu grows.
+		
+		Design Principle: classes should be cloesd to change, but open to extension. 
+		
+		Instead of using inheritance, which locks its subclasses into whatever functionality the superclass 
+		provides, we're gonna start with basic objects and wrap them into more complex objects.
+		
+			Start with a DarkRoast object.
+			Decorate it with a Whip object
+			Decorate it with a Mocha object
+			Call the cost() method and rely on delegation (strategy?) to add up the condiments. (Maybe the costs
+			are included in the Whip and Mocha wrappers)
+			
+		So all of the above classes, DarkRoast, Whip, Mocha, have a cost() method.  So how do we get these methods 
+		to properly calculate the cost?  Answer: call cost() on the outermost decorator, and it'll delegate 
+		computing the cost to the objects it decorates.
+		
+		Decorators have the same supertype as the objects they decorate.
+		
+		We can pass around a decorated object in place of original warpped object.
+		
+		Formal def of Decorator Pattern:
+			attaches addition responsibilities to an object dynamically.
+			
+		Participants:
+			AbstractComponent - the superclass that the concrete compoments and their wrappers/decorators 
+			inherit
+			
+			ConcreteComponent - the object that we're going to dynamically add new behaviors to.
+			
+			Decorator - each decorator Has-A component that it wraps, that is, has it as a field.  This class
+			is declared abstract, and the Component that it takes as a field is declared as the AbstractComponent 
+			type described above: this way it can wrap any ConcreteComponent.
+			
+			ConcreteDecorator - inherit the Decorator, and it takes a concrete component and wraps it.
+			
+		The decorators inherit the same class as the beverages.  The primary reason for doing this isnt for the 
+		sake of inheriting behavior, but for type matching: so that the decorators can be treated the same way in
+		some respect as the things they decorate.
+		
+		The objects acquire new behavior not through inheritence, but through composition.
+		
+		Relying on inheritence makes it so behavor is determined statically at compile time.
+		
+		As you learned in class, Java's I/O classes is an example of the Decorator pattern.
+		
+		One of the downsides of the Decorator pattern is that you end up with a large menu of small classes, or 
+		decorators, which can be overwhelming to developers.  

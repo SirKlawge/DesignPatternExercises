@@ -22,6 +22,7 @@ public class CurrentConditionsDisplay implements DisplayElement, Observer {
 		this.temperature = temp;
 		this.humidity = humidity;
 		this.pressure = pressure;
+		this.display();
 	}
 
 }
