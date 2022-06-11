@@ -160,3 +160,42 @@ Notes from Head First Design Patterns:
 		
 		One of the downsides of the Decorator pattern is that you end up with a large menu of small classes, or 
 		decorators, which can be overwhelming to developers.  
+		
+	Factory Pattern
+	
+		The Factory patterns offers alternative ways of instantiating objects in a way that reduces coupling between 
+		classes.
+		
+		One way of instantiating objects is by having the client provide certain arguments, and then responding 
+		having another class create objects based on the provided argument, probably done with a long if/else 
+		decision tree.  But, when it comes time to make changes, you have to change existing code.
+		
+		Factories handle the details of object creation.  Anytime a client needs an object, it asks the Factory to 
+		make one.
+		
+		The client class that uses the factory gets the Factory as a field.
+		
+		The Simple Factory Pattern isnt actually a design pattern; it's an idiom.
+		
+		The Participants for a simple Factory:
+			ConcreteFactory - Makes products of a certain type.  Determines which concrete product type to make,
+			
+			AbstractProduct - An abstract type of product that declares the interface the concrete subclasses.
+			
+			ConcreteProduct - the subclasses of AbstractProduct that implement the interface defined by AbstractProduct
+			
+		What's the difference between the Simple and Abstract Factories?  The Abstract Factory adds an AbstractFactory,
+		so that more than one type of ConcreteFactory may be defined.
+		
+		The AbstractFactory class has a concrete method that determines which of its products to instantiate.
+		
+		Factory methods might have a general signature like this:
+			public abstract Product factoryMethod(String type);
+			
+		And you'll see this method declared in an abstract class.  The concrete classes that inherit this abstract 
+		class will handle object creation.  Here's what the client needs to do to use the factory methods
+		
+			AbstractFactory product = new ConcreteFactory();
+			
+		This means that the client still needs to know the list of available concrete factories, and they still have
+		to use the new keyword.  So the client is making objects, just not the concete objects.
