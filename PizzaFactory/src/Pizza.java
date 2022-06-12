@@ -12,23 +12,25 @@ public class Pizza {
 		System.out.println("Adding the " + this.sauce + " sauce.");
 		System.out.println("Adding toppings...");
 		for(String topping : this.toppings) {
-			System.out.println();
+			System.out.println(" " + topping);
 		}
 	}
 
 	public void bake() {
-		// TODO Auto-generated method stub
+		System.out.println("Bake for 25 minutes at 350");
 		
 	}
 
 	public void cut() {
-		// TODO Auto-generated method stub
-		
+		System.out.println("Cutting the pieces into diagonal slices");
 	}
 
 	public void box() {
-		// TODO Auto-generated method stub
-		
+		System.out.println("Place pizza into official PizzaStore box");
+	}
+	
+	public String getName() {
+		return this.name;
 	}
 
 }

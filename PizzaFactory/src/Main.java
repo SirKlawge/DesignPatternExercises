@@ -8,9 +8,9 @@ public class Main {
 		
 		PizzaStore chicagoPizzaStore = new ChicagoPizzaStore();
 		
-		System.out.println(nyPizzaStore.orderPizza("cheese"));
+		Pizza pizza = nyPizzaStore.orderPizza("cheese");
 		
-		System.out.println(chicagoPizzaStore.orderPizza("veggie"));
+		pizza = chicagoPizzaStore.orderPizza("cheese");
 
 	}
 
