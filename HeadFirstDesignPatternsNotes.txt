@@ -199,3 +199,45 @@ Notes from Head First Design Patterns:
 			
 		This means that the client still needs to know the list of available concrete factories, and they still have
 		to use the new keyword.  So the client is making objects, just not the concete objects.
+        
+        The Factory Method pattern encapsulates object creation by letting subclasses decide what objects to create.
+        In the PizzaStore example, the subclasses refers to the Concrete PizzaStores.
+        
+        So in the Factory Pattern, you have the following participants:
+            AbstractCreator - contains an abstract factory method which the concrete creators use to determine how 
+            they're going to create objects.  Also contains concrete code common to all ConcreteCreators.
+            
+            ConcreteCreator - provides implementation for the factory method which determines how objects are made.
+            
+            AbstractProduct - declares the type of products that are produced by creators.
+            
+            ConcreteProducts - specific products that are of type AbstractProduct.
+            
+        Design Pricinciple: depend on abstractions, not on concrete classes.
+            Our high level component should not depend on low-level components, rather they should both depend on 
+            abstractions.
+            
+            In the pizza example, the Pizza store is a high-level component, and the pizza implementations are the 
+            low-level components.  
+            You don't want one pizza store producing all of the different concrete pizza, whether they be NY or 
+            Chicago style or whatever.  This will mean one big if/else decision tree in the PizzaStore class 
+            that determines which pizza to make.  This makes PizzaStore too dependent on the concrete classes.
+            By using the Factory method pattern, we made the concrete PizzaStores only dependent on an abstract 
+            Pizza class rather than all of the concrete Pizza classes.
+            
+            When you approach thinking about such a project, rather than start from a top-down approach in terms of 
+            abstraction (thinking first about an abstract Pizza class then thinking about concrete pizza classes), 
+            think first about all of the cocrete products you want to make, and find a commonality between them.  
+            That commonality will be part of the interface that your concrete products all share.
+            
+            As a rule no variable should hold a reference to a concrete class. (recall in the pizza example, the
+            concrete PizzaStores returned Pizzas with the factory method.  The client didn't need to know anything 
+            about concrete products).
+            
+            As a rule, no class should derive from a concrete class.  That means depending on a concrete class rather 
+            than an abstraction.
+            
+            As a rule, no method should override an implemented method of any of its base classes.
+            
+            
+            
