@@ -238,6 +238,125 @@ Notes from Head First Design Patterns:
             than an abstraction.
             
             As a rule, no method should override an implemented method of any of its base classes.
+			
+		An Abstract Factory provides an interface for a family of products.  We then write our code so that 
+		it uses the factory to create products.
+		
+		The Abstract Factory Pattern: provides an interface for creating families of related or dependent objects 
+		without specifying their concrete class.
+		
+	So What is a factory method?  It's a method in an abstract class or interface that is left abstract.  Subclasses,
+	or users of the interface, provide an implementation for that factory method.  The subclasses then use the 
+	factory method to return, or produce, the objects
             
-            
-            
+	Singleton Pattern:
+	For making one of a kind objects.
+	
+	Things you only need one of: 
+		thread pools, caches, dialog boxes...
+		
+	The Singleton pattern gives us the benefits of a global varaible minus the downsides.
+	The downsides of global variables:
+		if you have an object as a global variable, it'll get instantiated when the application launches.  If 
+		it's a resource intensive object and your application never ends up using it, it's wasteful.
+		
+	The singleton pattern allows us to create the singleton object only when it's needed.
+	
+	Things can go wrong if multiple threads access the instance at the same time.
+	You can try to used the synchronized keyword for your getInstance() method, but each client only ever needs
+	to call the method once.  I guess synchronization is expensive, so we want a workaround.
+	
+	1) if calling getInstance() isn't slowing your program down too much, then dont worry about it.
+	
+	2) If your application always creates and uses an instance of the singleton, then rather than creating it 
+	in the getInstance() method, just create it at the same time you decalare it.  Then the getInstance method
+	just returns the instance. Declare the singleton as a static member.  The JVM will automatically create a 
+	unique instance of the singleton when the class is loaded, that is, it's created before any thread accesses 
+	it.
+	
+	3) Double checked locking: code checks for an existing instance of the Singleton twice.
+	
+	public class Singleton {
+		private volatile static Singleton singleton;
+		
+		private Singleton(){
+		}
+		
+		public static Singleton getInstance(){
+			if(singleton == null){ //First check
+			//if you're here, then the singleton has not been made yet.
+				synchronized (Singleton.class){ 
+					if(singleton == null){ //synchronized check.  So only one can be made.  No race condition.
+						singleton = new Singleton();
+					}
+				}
+			}
+			return singleton;
+		}
+	}
+	
+	Command Pattern:
+		A way of encapsulating method invocation.
+		
+		Example: using one programmable remote to control multiple devices that have different interfaces.
+		
+		Decouple the requester of an action from the object that actually performs the action.
+		Or it separates the object making a request from the objects that receive and execute those requests.
+		
+		The Command Design pattern:
+			1) The client creates a Command object, which consists of a set of actions on a Receiver.
+			2) The command object provides the execute() method which can be called to invoke the actions on the
+			Receiver.  (So what's passed to this execute() method?  A String or enum that specifies which method
+			to run at the receiver?) (Do in the diner example, the command is the order)
+			3) The client calls setCommand() on the Invoker object and passes it the Command object.  (In the 
+			diner example, is the waitress the Invoker object?)
+			4) At some point in the future, the Invoker object calls the Command object's execute() method.
+			5) 4) results in the actions being invoked on the receiver.
+			
+		Ok, so I was way off on the diner example:
+			
+			waitress -> Command
+			short order cook -> execute()
+			orderUp() -> Client
+			Order -> Invoker
+			Customer -> receiver
+			takeOrder() -> setCommand()
+			
+		The Command Pattern encapsulates a request as an object, thereby letting you parameterize other objects 
+		with different requests, queue or log requests, and support undoable operations.
+		
+		The command pattern packages the actions and the receiver into an object that exposes just one method: 
+		execute.  When called, execute() causes the actions to be invoked on the receiver.
+		
+		Notice that the remote control doesn't care which particular ConcreteCommand was associated with the 
+		button slot, it just cares that it's a Command, and thus it has an execute() method.  This is an example 
+		of what it means to "parameterize an object with a command".  What gets parameterized is the command, 
+		the button slot: it can take multiple differnt types so long as they are Commands. The button slot is
+		the Invoker.  
+		
+		The Meta Command Pattern allows you to create macros of commands so that you can execute multiple commands 
+		at once.
+		
+		Command Pattern Participants: 
+			Client - Responsible for creating a ConcreteCommand and setting it's receiver (the command and the 
+			object that performs that command).
+			
+			Invoker - holds a command and, at some point, asks the command to carry out a request by calling
+			its execute() method.
+			
+			Receiver - The object that has a list of methods representing actions that it can perform.  Will there
+			be a command object for each method that the receiver can perform?
+			
+			Command Interface - declares an interface for all the comamnds. It declares the execute() method, 
+			and maybe an undo() method.
+			
+			ConcreteCommand - represents a single command that get's executed by the Invoker.  It holds a reference
+			to the Receiver that it commands, and its implementation of execute calls the corresponding method 
+			of the Receiver.
+			
+		How does this decouple the Invoker (the remote) from the Receiver? The invoker holds a reference to a 
+		Command type, or a collection of Command types (for multiple commands using one object).  The invoker 
+		calls the execute() method: a method guaranteed to be shared by all Command objects.  The command 
+		objects in turn tell the receivers which method to call since they hold a reference to the receiver.
+		
+		

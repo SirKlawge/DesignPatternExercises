@@ -8,4 +8,10 @@ public class NYStyleCheesePizza extends Pizza {
 		
 		toppings.add("Grated Reggiano Cheese");
 	}
+
+	@Override
+	public void prepare() {
+		// TODO Auto-generated method stub
+		
+	}
 }
