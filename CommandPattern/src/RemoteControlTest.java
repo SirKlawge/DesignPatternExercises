@@ -15,31 +15,63 @@
 public class RemoteControlTest {
 
 	public static void main(String[] args) {
-		//Make a remote control
-		SimpleRemoteControl rc = new SimpleRemoteControl();
+//		//Make a remote control
+//		SimpleRemoteControl rc = new SimpleRemoteControl();
+//		
+//		//Make an object to control and the command object to control it
+//		Light livingRoomLight = new Light();
+//		Command livingRoomLightOn = new LightCommand(livingRoomLight);
+//		
+//		Command livingRoomLightOff = () -> {
+//			livingRoomLight.off();
+//		};
+//		
+//		rc.setCommand(livingRoomLightOff);
+//		rc.buttonWasPressed();
+//		
+//		//Configure the remote with the new command.
+//		rc.setCommand(livingRoomLightOn);
+//		rc.buttonWasPressed(); //Press the button!
+//		
+//		//Make a garage door and a garage door command
+//		GarageDoor gd = new GarageDoor();
+//		Command gdCommand = new GarageDoorOpenCommand(gd);
+//		
+//		//Reconfigure the button to execute the garage door command.
+//		rc.setCommand(gdCommand);
+//		rc.buttonWasPressed(); //Push the button!
 		
-		//Make an object to control and the command object to control it
-		Light livingRoomLight = new Light();
-		Command livingRoomLightOn = new LightCommand(livingRoomLight);
+		RemoteControl rc = new RemoteControl();
 		
-		Command livingRoomLightOff = () -> {
-			livingRoomLight.off();
-		};
+		//Living room light
+		Light livingRoomLight = new Light("Living Room Light");
+		Command lrLightOn = new LightCommand(livingRoomLight);
+		Command lrLightOff = new LightOffCommand(livingRoomLight);
+		//Configure the top two buttons of the remote
+		rc.setCommand(0, 0, lrLightOn);
+		rc.setCommand(0, 1, lrLightOff);
 		
-		rc.setCommand(livingRoomLightOff);
-		rc.buttonWasPressed();
+		rc.buttonWasPushed(0, 0);
+		rc.buttonWasPushed(0, 1);
 		
-		//Configure the remote with the new command.
-		rc.setCommand(livingRoomLightOn);
-		rc.buttonWasPressed(); //Press the button!
+		Light kitchenLight = new Light("Kitchen Light");
+		Command kitLightOn = new LightCommand(kitchenLight);
+		Command kitLightOff = new LightOffCommand(kitchenLight);
 		
-		//Make a garage door and a garage door command
-		GarageDoor gd = new GarageDoor();
-		Command gdCommand = new GarageDoorOpenCommand(gd);
+		rc.setCommand(1, 0, kitLightOn);
+		rc.setCommand(1, 1, kitLightOff);
 		
-		//Reconfigure the button to execute the garage door command.
-		rc.setCommand(gdCommand);
-		rc.buttonWasPressed(); //Push the button!
+		rc.buttonWasPushed(1, 0);
+		rc.buttonWasPushed(1, 1);
+		
+		Fan livingRoomCeilingFan = new Fan("Living Room Ceiling Fan");
+		Command ceilingFanOn = new FanOnCommand(livingRoomCeilingFan);
+		Command ceilingFanOff = new FanOffCommand(livingRoomCeilingFan);
+		
+		rc.setOnOffCommands(2, ceilingFanOn, ceilingFanOff);
+		
+		rc.buttonWasPushed(2, 0);
+		rc.buttonWasPushed(2, 1);
 	}
 
 }

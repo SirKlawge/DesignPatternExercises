@@ -1,5 +1,5 @@
 
-public class GarageDoor {
+public class GarageDoor extends Receiver {
 	
 	public GarageDoor() {
 		

@@ -1,7 +1,7 @@
 
 public class GarageDoorOpenCommand implements Command {
 	
-	private GarageDoor garageDoor;
+	private Receiver garageDoor;
 	
 	public GarageDoorOpenCommand(GarageDoor garageDoor) {
 		this.garageDoor = garageDoor;
@@ -9,7 +9,18 @@ public class GarageDoorOpenCommand implements Command {
 
 	@Override
 	public void execute() {
-		this.garageDoor.up();
+		((GarageDoor) this.garageDoor).up();
+	}
+
+	
+	public Receiver getReceiver() {
+		return this.garageDoor;
+	}
+
+	@Override
+	public void undo() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

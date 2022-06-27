@@ -13,5 +13,19 @@ public class LightCommand implements Command {
 	public void execute() {
 		this.light.on();
 	}
+	
+	public String toString() {
+		return "Turn light on";
+	}
+	
+	public Light getReceiver() {
+		return this.light;
+	}
+
+	@Override
+	public void undo() {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

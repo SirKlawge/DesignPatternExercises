@@ -359,4 +359,9 @@ Notes from Head First Design Patterns:
 		calls the execute() method: a method guaranteed to be shared by all Command objects.  The command 
 		objects in turn tell the receivers which method to call since they hold a reference to the receiver.
 		
-		
+		It might be a good idea to create a dictionary that associates a String or enum with command objects.
+        (Map<String, Command>).  In this way, you can make a menu of Commands that you can offer the person
+        configuring the Invokers.
+        
+        
+        
