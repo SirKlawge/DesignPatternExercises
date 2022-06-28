@@ -53,6 +53,7 @@ public class RemoteControlTest {
 		
 		rc.buttonWasPushed(0, 0);
 		rc.buttonWasPushed(0, 1);
+		rc.undoLastCommand();
 		
 		Light kitchenLight = new Light("Kitchen Light");
 		Command kitLightOn = new LightCommand(kitchenLight);

@@ -363,5 +363,35 @@ Notes from Head First Design Patterns:
         (Map<String, Command>).  In this way, you can make a menu of Commands that you can offer the person
         configuring the Invokers.
         
-        
-        
+        So, yes, if you keep just one abstract method in your interface, you get a functional interface, and then
+		you can use lambda functions. 
+		
+		To complete the Command Pattern, you declare an undo method in the Command interface.  It'll lose its 
+		status as a functional interface.  Each ConcreteCommand then provides implementation for the undo()
+		method, which is as simple as doing the opposite of the command that's in the execute method.  The 
+		object that the command commands should provide the undo functionality too.
+		
+		In order to make use of the undo feature, you need to add some implementation to the Invoker (remote).
+		Do this by adding an intance variable to the Invoker class that saves the last command invoked.
+		
+		If the Invoker class has a Stack instead of an instance variable tracking the most recently executed
+		commands, you could undo commands in reverse chronological order.  How big you wanna let that stack get?
+		Maybe limit its size, and start pushing the oldest things out of the bottom of the stack once it reaches
+		capacity.
+		
+		So a command where there are only two modes, like on and off, has a simple implementation of undo.
+		But what if we're talking about a ceiling fan that has different fan speeds, slow, medium, and fast?
+		Then you need to log the states and maintain the current state.  Again, this could be done with a stack.
+		The item at the top of the stack could be the current or most recent state, and a call to undo() could 
+		just pop the stack, and the new top would be the current state.  So, for example, your fan starts on 
+		slow, you enter a command to turn it up to medium, so the medium command is pushed to the top of the 
+		stack.  The fan is now running at medium speed.  But then you wanna go back to slow, so you hit undo()
+		and the top of the stack is slow again, and that is your current state.
+		But what if you never configure your controller to maniupulate the speed of the fans?  It'll then never 
+		need the stack.  So this is a flawed approach.
+		
+		The book implements this by adding the speeds as constants in the Fan class.  Then it uses an instance
+		variable, speed.  It adds a public setter for each speed (low(), med(), high()).  It also adds 
+		the getSpeed class: a getter for the state.
+		
+		

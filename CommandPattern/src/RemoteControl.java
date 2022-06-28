@@ -1,6 +1,7 @@
 
 public class RemoteControl {
-	Command[][] buttons; //Thre will be 7 rows of buttons.  Two buttons per row
+	private Command[][] buttons; //Thre will be 7 rows of buttons.  Two buttons per 
+	private Command lastCommand;
 	
 	public RemoteControl() {
 		//Initialize the button array
@@ -13,6 +14,8 @@ public class RemoteControl {
 				this.buttons[i][j] = noCommand; 
 			}
 		}
+		
+		this.lastCommand = noCommand;
 	}
 	
 	//Use this to set a single command to a button at a specified row and column
@@ -28,7 +31,12 @@ public class RemoteControl {
 	
 	//Execute when a button is pushed.
 	public void buttonWasPushed(int row, int col) {
-		this.buttons[row][col].execute();;
+		this.buttons[row][col].execute();
+		this.lastCommand = this.buttons[row][col];
+	}
+	
+	public void undoLastCommand() {
+		this.lastCommand.undo();
 	}
 	
 	public String toString() {
